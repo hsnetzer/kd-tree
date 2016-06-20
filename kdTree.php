@@ -86,9 +86,16 @@ class kdTree {
         $thisBranchNN = $this->kdNN2($testPt, $thisBranch, $depth + 1);
         if ($thisBranchNN) {
             $NNDist = self::haversine($thisBranchNN, $testPt);
+            
+            // if distance is less than 50 feet, return
+            if ($NNDist < 2.4e-6) {
+                return $thisBranchNN;
+            }
+            
+            // get distance from query point to last splitting axis
             $orthoDist = self::orthoDist($testPt, $node->getAxis(), $d, $NNDist);
-            echo "\n ortho: $orthoDist";
-            echo "\n NN: $NNDist";
+            
+            // if hypersphere does not intersect node's splitting axis
             if ($NNDist < $orthoDist) {
                 return $thisBranchNN;
             } else {
@@ -106,7 +113,7 @@ class kdTree {
     
     /*
      * returns the absolute value, in feet, of either the latitudinal or 
-     * longitudinal component of the displacement between between two points given
+     * longitudinal displacement between between two points given
      * by arrays containing degree values for keys 'lon' and 'lat'
      */
     static function orthoDist($p1, $coord, $d, $NNdist) {
