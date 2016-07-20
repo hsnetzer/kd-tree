@@ -100,10 +100,14 @@ class kdTree {
                 return $thisBranchNN;
             } else {
                 $otherBranchNN = $this->kdNN2($testPt, $otherBranch, $depth + 1);
-                if ($NNDist < self::haversine($otherBranchNN, $testPt)) {
-                    return $thisBranchNN;
+                if ($otherBranchNN) {
+                    if ($NNDist < self::haversine($otherBranchNN, $testPt)) {
+                        return $thisBranchNN;
+                    } else {
+                        return $otherBranchNN;
+                    }
                 } else {
-                    return $otherBranchNN;
+                    return $thisBranchNN;
                 }
             }
         } else {

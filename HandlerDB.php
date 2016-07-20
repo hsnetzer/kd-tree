@@ -11,7 +11,7 @@
  *
  * @author Harry
  */
-class HandlerDB extends SQLite3{
+class HandlerDB extends SQLite3 {
     
     function __construct($filename)
     {

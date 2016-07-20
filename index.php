@@ -5,14 +5,14 @@
  */
 
 require "kdTree.php";
-require 'handlerDB.php';
+require 'HandlerDB.php';
 
-$db = new HandlerDB('master.db');
+$db = new HandlerDB('/Users/harrynetzer/NetBeansProjects/kd-tree/master.db');
 $ATtrackArray = $db->getATTrkPts();
 
 $time_start1 = microtime(true);
-$ATkd = new kdTree('load', ['array' => 'ATtrackArray', 'file' => "ATkd"]);
-// $ATkd->kdDump('ATkd');
+$ATkd = new kdTree("generate", ['array' => 'ATtrackArray', 'file' => "ATkd"]);
+$ATkd->kdDump('ATkd');
 $time_end1 = microtime(true);
 echo "\n kd build time: " . ($time_end1 - $time_start1);
 
